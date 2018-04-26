@@ -28,7 +28,7 @@ class KumaTasks
       [name, []]
     end.to_h
     issues.each do |issue|
-      label = section_labels.find { |section_label| issue.labels.any? { |label| label.id == section_label.id } }
+      label = section_labels.find { |section_label| issue.labels.any? { |issue_label| issue_label.id == section_label.id } }
       if label.nil?
         grouped_issues['その他'].push(issue)
       else
@@ -37,19 +37,16 @@ class KumaTasks
     end
     grouped_issues
   end
-
-  def generate_issue_md
-    issues.each do |issue|
-      puts <<-HERE
-- [ ] #{issue[:title]} #{issue[:html_url]}
-      HERE
-    end
-  end
 end
 
 KumaTasks.new.issues_grouped_by_label.each do |label_name, issues|
   puts "## #{label_name}"
-  issues.each do |issue|
-    puts "- [ ] #{issue.title}(#{issue.html_url})"
+  if issues.empty?
+    puts 'issueなし'
+  else
+    issues.each do |issue|
+      puts "- [ ] #{issue.title}(#{issue.html_url})"
+    end
   end
+  puts ''
 end
