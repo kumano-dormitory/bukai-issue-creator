@@ -7,4 +7,4 @@ REPOSITORY=ENV['REPOSITORY'].freeze
 
 reader = KumanoTasks::GithubReader.new(API_KEY, REPOSITORY)
 writer = KumanoTasks::GithubWriter.new(API_KEY, REPOSITORY)
-puts writer.generate_markdown_string(reader.issues_grouped_by_label)
+puts writer.create_issue(reader.issues_grouped_by_label)

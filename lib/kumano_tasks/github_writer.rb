@@ -1,9 +1,18 @@
+require 'date'
+
 module KumanoTasks
   class GithubWriter
     def initialize(api_key, repository_name)
       @api_key = api_key
       @repository_name = repository_name
       @client = Octokit::Client.new(access_token: @api_key)
+    end
+
+    def create_issue(issues_grouped_by_label)
+      ENV['TZ'] = 'Asia/Tokyo'
+      title = "#{Date.today.strftime('%m/%d')}の部会"
+      body = generate_markdown_string(issues_grouped_by_label)
+      @client.create_issue(@repository_name, title, body)
     end
 
     def generate_markdown_string(issues_grouped_by_label)
