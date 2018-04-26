@@ -3,11 +3,10 @@ require 'dotenv/load'
 
 module KumanoTasks
   class GithubReader
-    API_KEY=ENV['API_KEY'].freeze
-    REPOSITORY=ENV['REPOSITORY'].freeze
-
-    def initialize
-      @client = Octokit::Client.new(access_token: API_KEY)
+    def initialize(api_key, repository_name)
+      @api_key = api_key
+      @repository_name = repository_name
+      @client = Octokit::Client.new(access_token: @api_key)
     end
 
     def client
@@ -15,11 +14,11 @@ module KumanoTasks
     end
 
     def issues
-      @issues ||= client.issues(REPOSITORY)
+      @issues ||= client.issues(@repository_name)
     end
 
     def section_labels
-      @section_labels ||= client.labels(REPOSITORY).select do |label|
+      @section_labels ||= client.labels(@repository_name).select do |label|
         label.name.match(/セクション/)
       end
     end
