@@ -1,10 +1,11 @@
 require 'io/console'
 require 'octokit'
+require 'dotenv/load'
 
-API_KEY='4684849ce5845562dfaad29b91f50b3d88aee5d1'.freeze
-REPOSITORY='genya0407/kumano-tasks'.freeze
+API_KEY=ENV['API_KEY'].freeze
+REPOSITORY=ENV['REPOSITORY'].freeze
 
-class KumaTasks
+class KumanoTasks
   def initialize
     @client = Octokit::Client.new(access_token: API_KEY)
   end
@@ -39,8 +40,9 @@ class KumaTasks
   end
 end
 
-KumaTasks.new.issues_grouped_by_label.each do |label_name, issues|
+KumanoTasks.new.issues_grouped_by_label.each do |label_name, issues|
   puts "## #{label_name}"
+  puts ''
   if issues.empty?
     puts 'issueなし'
   else
