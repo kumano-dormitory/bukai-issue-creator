@@ -13,8 +13,8 @@ module KumanoTasks
       @client
     end
 
-    def issues
-      @issues ||= client.issues(@repository_name)
+    def issues(since: (Date.today - 7).to_time) # 7 days ago
+      @issues ||= open_issues + closed_updated_issues(since)
     end
 
     def section_labels
@@ -36,6 +36,17 @@ module KumanoTasks
         end
       end
       grouped_issues
+    end
+
+    private
+    def open_issues
+      client.issues(@repository_name)
+    end
+
+    def closed_updated_issues(since)
+      client.issues(@repository_name, state: :closed).select { |issue|
+        issue.updated_at > since
+      }
     end
   end
 end
