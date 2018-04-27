@@ -7,12 +7,22 @@ GEM
     faraday (0.14.0)
       multipart-post (>= 1.2, < 3)
     multipart-post (2.0.0)
+    mustermann (1.0.2)
     octokit (4.8.0)
       sawyer (~> 0.8.0, >= 0.5.3)
     public_suffix (3.0.2)
+    rack (2.0.5)
+    rack-protection (2.0.1)
+      rack
     sawyer (0.8.1)
       addressable (>= 2.3.5, < 2.6)
       faraday (~> 0.8, < 1.0)
+    sinatra (2.0.1)
+      mustermann (~> 1.0)
+      rack (~> 2.0)
+      rack-protection (= 2.0.1)
+      tilt (~> 2.0)
+    tilt (2.0.8)
 
 PLATFORMS
   ruby
@@ -20,6 +30,7 @@ PLATFORMS
 DEPENDENCIES
   dotenv
   octokit
+  sinatra
 
 BUNDLED WITH
    1.16.1
