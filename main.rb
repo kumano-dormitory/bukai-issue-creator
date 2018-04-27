@@ -21,5 +21,7 @@ post '/create_issue' do
   writer = KumanoTasks::GithubWriter.new(API_KEY, REPOSITORY)
   new_issue = writer.create_issue(reader.issues_grouped_by_label)
 
+  sleep 1 # in order to avoid 404 issue not found error.
+
   redirect new_issue.html_url
 end
