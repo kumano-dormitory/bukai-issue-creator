@@ -2,11 +2,14 @@ $LOAD_PATH.push('./lib')
 
 require 'kumano_tasks'
 require 'sinatra'
+require 'rack/ssl-enforcer'
 
 API_KEY=ENV['API_KEY'].freeze
 REPOSITORY=ENV['REPOSITORY'].freeze
 USERNAME=ENV['USERNAME'].freeze
 PASSWORD=ENV['PASSWORD'].freeze
+
+use Rack::SslEnforcer if production?
 
 use Rack::Auth::Basic do |username, password|
   username == USERNAME && password == PASSWORD
