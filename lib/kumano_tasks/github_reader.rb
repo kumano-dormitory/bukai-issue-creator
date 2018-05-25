@@ -90,7 +90,7 @@ module KumanoTasks
 
     def section_labels
       @section_labels ||= GithubGraphQL::Client.query(Labels).data.repository.labels.nodes.select do |label|
-        label.name.match(/セクション/)
+        label.name.match(/セクション/) || label.name.match(/部長タスク/) || label.name.match(/会計タスク/)
       end
     end
 
@@ -130,5 +130,10 @@ end
 
 if __FILE__ == $0
   reader = KumanoTasks::GithubReader.new
-  puts reader.issues_grouped_by_label
+  reader.issues_grouped_by_label.each do |label, issues|
+    puts label
+    issues.each do |issue|
+      puts "    #{issue.title}"
+    end
+  end
 end
