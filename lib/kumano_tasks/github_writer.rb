@@ -1,4 +1,5 @@
 require 'date'
+require 'octokit'
 
 module KumanoTasks
   class GithubWriter
@@ -23,7 +24,7 @@ module KumanoTasks
           result += "issueなし\n"
         else
           issues.each do |issue|
-            result += "- [ ] #{issue.title}(#{issue.html_url})\n"
+            result += "- [ ] #{issue.title}(#{issue.url})\n"
           end
         end
         result += "\n"

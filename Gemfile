@@ -10,3 +10,4 @@ gem "octokit"
 gem "dotenv"
 gem "sinatra"
 gem 'rack-ssl-enforcer'
+gem 'graphql-client'

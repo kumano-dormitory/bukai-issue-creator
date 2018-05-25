@@ -3,6 +3,7 @@ $LOAD_PATH.push('./lib')
 require 'kumano_tasks'
 require 'sinatra'
 require 'rack/ssl-enforcer'
+require 'dotenv/load'
 
 API_KEY=ENV['API_KEY'].freeze
 REPOSITORY=ENV['REPOSITORY'].freeze
@@ -20,7 +21,7 @@ get '/' do
 end
 
 post '/create_issue' do
-  reader = KumanoTasks::GithubReader.new(API_KEY, REPOSITORY)
+  reader = KumanoTasks::GithubReader.new
   writer = KumanoTasks::GithubWriter.new(API_KEY, REPOSITORY)
   new_issue = writer.create_issue(reader.issues_grouped_by_label)
 
