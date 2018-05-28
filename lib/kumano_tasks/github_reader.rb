@@ -35,6 +35,11 @@ module KumanoTasks
             nodes {
               title,
               url,
+              assignees(first: 10) {
+                nodes {
+                  login
+                }
+              },
               labels(first: 10) {
                 nodes {
                   id,
@@ -54,6 +59,11 @@ module KumanoTasks
             nodes {
               title,
               url,
+              assignees(first: 10) {
+                nodes {
+                  login
+                }
+              },
               labels(first: 10) {
                 nodes {
                   id,

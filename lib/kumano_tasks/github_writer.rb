@@ -24,7 +24,8 @@ module KumanoTasks
           result += "issueなし\n"
         else
           issues.each do |issue|
-            result += "- [ ] #{issue.title}(#{issue.url})\n"
+            assignees = issue.assignees.nodes.map(&:login).map {|name| "@#{name}"}.join(', ')
+            result += "- [ ] #{issue.url} #{issue.title} (#{assignees})\n"
           end
         end
         result += "\n"
@@ -33,4 +34,11 @@ module KumanoTasks
       return result
     end
   end
+end
+
+if __FILE__ == $0
+  require_relative './github_reader'
+  reader = KumanoTasks::GithubReader.new
+  markdown_string = KumanoTasks::GithubWriter.new(nil, nil).generate_markdown_string(reader.issues_grouped_by_label)
+  puts markdown_string
 end
