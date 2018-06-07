@@ -1,0 +1,9 @@
+<% issues_grouped_by_label.each do |label_name, issues| %>
+## <%= label_name %>
+<% if issues.empty? %>
+issueなし
+<% else %>
+<% issues.each do |issue| %>
+- [ ] <%= issue.url %> <%= issue.title %> (<%= issue.assignees.nodes.map(&:login).map {|name| "@#{name}"}.join(', ') %>)<% end %>
+<% end %>
+<% end %>

@@ -1,5 +1,6 @@
 require 'date'
 require 'octokit'
+require 'erb'
 
 module KumanoTasks
   class GithubWriter
@@ -17,21 +18,10 @@ module KumanoTasks
     end
 
     def generate_markdown_string(issues_grouped_by_label)
-      result = ''
-      issues_grouped_by_label.each do |label_name, issues|
-        result += "## #{label_name}\n\n"
-        if issues.empty?
-          result += "issueなし\n"
-        else
-          issues.each do |issue|
-            assignees = issue.assignees.nodes.map(&:login).map {|name| "@#{name}"}.join(', ')
-            result += "- [ ] #{issue.url} #{issue.title} (#{assignees})\n"
-          end
-        end
-        result += "\n"
-      end
+      filename = File.join(File.dirname(__FILE__), './issue.md.erb')
+      erb = ERB.new(File.read(filename))
 
-      return result
+      return erb.result(binding)
     end
   end
 end
