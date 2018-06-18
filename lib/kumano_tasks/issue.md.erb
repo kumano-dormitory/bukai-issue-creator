@@ -10,6 +10,6 @@
 issueなし
 <% else %>
 <% issues.each do |issue| %>
-- [ ] <%= issue.url %> <%= issue.title %> (<%= issue.assignees.nodes.map(&:login).map {|name| "@#{name}"}.join(', ') %>)<% end %>
+- [ ] <% if issue.state == 'OPEN' %>![#2cbe4e](https://placehold.it/15/2cbe4e/000000?text=+)<% else %>![#cb2431](https://placehold.it/15/cb2431/000000?text=+)<% end %> <%= issue.url %> <%= issue.title %> (<%= issue.assignees.nodes.map(&:login).map {|name| "@#{name}"}.join(', ') %>)<% end %>
 <% end %>
 <% end %>

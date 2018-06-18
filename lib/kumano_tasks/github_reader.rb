@@ -35,6 +35,7 @@ module KumanoTasks
             nodes {
               title,
               url,
+              state,
               assignees(first: 10) {
                 nodes {
                   login
@@ -59,6 +60,7 @@ module KumanoTasks
             nodes {
               title,
               url,
+              state,
               assignees(first: 10) {
                 nodes {
                   login
