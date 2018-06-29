@@ -9,4 +9,4 @@ RUN bundle install
 
 COPY . .
 
-CMD ["bundle", "exec", "rackup", "-p", "2000"]
+CMD ["bundle", "exec", "rackup", "-p", "2000", "-o", "0.0.0.0"]
