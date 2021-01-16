@@ -1,4 +1,4 @@
-FROM ruby:2.6.3-rc1-alpine3.8
+FROM ruby:2.6.3-alpine
 
 RUN bundle config --global frozen 1
 
